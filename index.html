@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sabor e Recheio</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff8f0;
+      color: #333;
+    }
+
+    header {
+      background: #8b1e1e;
+      color: white;
+      text-align: center;
+      padding: 25px 15px;
+    }
+
+    header h1 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .titulo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .titulo h2 {
+      color: #8b1e1e;
+      margin-bottom: 8px;
+    }
+
+    .produto {
+      background: white;
+      border-radius: 15px;
+      padding: 18px;
+      margin-bottom: 15px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.10);
+    }
+
+    .produto h3 {
+      color: #8b1e1e;
+      margin-bottom: 8px;
+    }
+
+    .produto p {
+      margin-bottom: 12px;
+    }
+
+    .preco {
+      font-size: 20px;
+      font-weight: bold;
+      color: #16803c;
+      margin-bottom: 12px;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      padding: 13px;
+      background: #8b1e1e;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #6f1515;
+    }
+
+    .combo {
+      background: #fff0c7;
+      border: 2px solid #e5a900;
+      border-radius: 15px;
+      padding: 18px;
+      margin-bottom: 15px;
+    }
+
+    .combo h3 {
+      color: #8b1e1e;
+      margin-bottom: 8px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🥔 Sabor e Recheio</h1>
+    <p>Batatas recheadas no pote</p>
+  </header>
+
+  <main class="container">
+
+    <div class="titulo">
+      <h2>Faça seu pedido</h2>
+      <p>Escolha sua batata favorita!</p>
+    </div>
+
+    <div class="produto">
+      <h3>🥔 Batata Recheada no Pote</h3>
+      <p>500 ml</p>
+      <div class="preco">R$ 25,99</div>
+      <button onclick="alert('Pedido selecionado!')">
+        Fazer pedido
+      </button>
+    </div>
+
+    <div class="combo">
+      <h3>🎁 COMBO 1</h3>
+      <p><strong>Na compra de 2 batatas recheadas no pote, ganhe 1 refrigerante lata!</strong></p>
+      <button onclick="alert('Combo 1 selecionado!')">
+        Quero este combo
+      </button>
+    </div>
+
+    <div class="combo">
+      <h3>🎁 COMBO 2</h3>
+      <p><strong>Na compra de 3 batatas recheadas no pote, ganhe 1 Guaraná Iate 2 L!</strong></p>
+      <button onclick="alert('Combo 2 selecionado!')">
+        Quero este combo
+      </button>
+    </div>
+
+  </main>
+
+  <footer>
+    Sabor e Recheio ❤️<br>
+    Seu sabor, do seu jeito!
+  </footer>
+
+</body>
+</html>
