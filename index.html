@@ -1,473 +1,1097 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sabor e Recheio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-*{box-sizing:border-box}
-body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#f5f5f5;
- color:#222;
- padding-bottom:90px
-}
-header{
- background:#d71920;
- color:white;
- padding:18px;
- text-align:center
-}
-header h1{margin:0;font-size:28px}
-header p{margin:5px 0 0}
+  <title>Sabor e Recheio | Batatas Recheadas</title>
 
-.hero{
- background:#fff;
- padding:20px;
- text-align:center
-}
-.hero h2{margin:5px 0;color:#d71920}
-.hero p{color:#666}
+  <meta name="description"
+        content="Sabor e Recheio - Batatas recheadas no pote, bebidas e acompanhamentos. Baixo Guandu e Aimorés.">
 
-.container{
- max-width:700px;
- margin:auto;
- padding:15px
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-.promo{
- background:#171717;
- color:white;
- border-radius:16px;
- padding:18px;
- margin-bottom:20px
-}
-.promo strong{color:#ffd34d}
+    :root {
+      --principal: #e63900;
+      --principal-escuro: #b92d00;
+      --amarelo: #ffbd00;
+      --fundo: #fff8f1;
+      --branco: #ffffff;
+      --texto: #252525;
+      --cinza: #777;
+      --verde: #19a463;
+      --vermelho: #d62828;
+      --borda: #eeeeee;
+      --sombra: 0 8px 25px rgba(0,0,0,.09);
+      --raio: 18px;
+    }
 
-h2{
- font-size:21px;
- margin-top:25px
-}
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--fundo);
+      color: var(--texto);
+      line-height: 1.5;
+    }
 
-.grid{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:12px
-}
+    button,
+    input,
+    textarea,
+    select {
+      font-family: inherit;
+    }
 
-.card{
- background:white;
- border-radius:16px;
- padding:15px;
- box-shadow:0 3px 10px #0001
-}
+    button {
+      cursor: pointer;
+    }
 
-.food{
- height:100px;
- border-radius:12px;
- background:#fff0d8;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:50px
-}
+    /* HEADER */
 
-.card h3{
- font-size:16px;
- margin:10px 0 5px
-}
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--branco);
+      box-shadow: 0 2px 15px rgba(0,0,0,.08);
+    }
 
-.card p{
- font-size:12px;
- color:#777;
- min-height:35px
-}
+    .topo {
+      max-width: 1200px;
+      margin: auto;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
 
-.price{
- font-size:18px;
- font-weight:bold;
- color:#d71920
-}
+    .logo {
+      width: 155px;
+      height: 65px;
+      object-fit: contain;
+      display: block;
+    }
 
-button{
- border:0;
- border-radius:10px;
- padding:11px;
- font-weight:bold;
- cursor:pointer
-}
+    .status {
+      border: none;
+      padding: 9px 14px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 13px;
+      color: white;
+    }
 
-.add{
- width:100%;
- margin-top:8px;
- background:#d71920;
- color:white
-}
+    .status.aberta {
+      background: var(--verde);
+    }
 
-.cart{
- position:fixed;
- bottom:10px;
- left:10px;
- right:10px;
- background:#171717;
- color:white;
- padding:13px;
- border-radius:15px;
- display:flex;
- justify-content:space-between;
- align-items:center
-}
+    .status.fechada {
+      background: var(--vermelho);
+    }
 
-.cart button{
- background:#ffd34d;
- color:#111
-}
+    .carrinho-topo {
+      position: relative;
+      background: var(--principal);
+      color: white;
+      border: none;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      font-size: 21px;
+    }
 
-#pedido{
- display:none;
- position:fixed;
- inset:0;
- background:#0008;
- z-index:10;
- align-items:flex-end
-}
+    .contador {
+      position: absolute;
+      top: -3px;
+      right: -2px;
+      background: var(--amarelo);
+      color: #222;
+      font-weight: 800;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
 
-.modal{
- background:white;
- width:100%;
- max-height:90%;
- overflow:auto;
- border-radius:22px 22px 0 0;
- padding:20px
-}
+    /* HERO */
 
-.item{
- display:flex;
- justify-content:space-between;
- padding:10px 0;
- border-bottom:1px solid #eee
-}
+    .hero {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 18px;
+    }
 
-input,select{
- width:100%;
- padding:13px;
- margin:6px 0 12px;
- border:1px solid #ddd;
- border-radius:10px
-}
+    .hero-box {
+      min-height: 330px;
+      border-radius: 25px;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.78), rgba(0,0,0,.18)),
+        url("imagens/banner-batata.jpg") center/cover;
+      display: flex;
+      align-items: center;
+      padding: 45px;
+      color: white;
+      overflow: hidden;
+    }
 
-.finalizar{
- width:100%;
- background:#25d366;
- color:white;
- font-size:16px
-}
+    .hero-content {
+      max-width: 600px;
+    }
 
-.fechar{
- float:right;
- background:#eee
-}
+    .hero h1 {
+      font-size: clamp(32px, 6vw, 60px);
+      line-height: 1.05;
+      margin-bottom: 15px;
+    }
 
-@media(max-width:420px){
- .grid{grid-template-columns:1fr}
-}
-</style>
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 25px;
+    }
+
+    .botao-principal {
+      background: var(--principal);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 22px;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .botao-principal:hover {
+      background: var(--principal-escuro);
+    }
+
+    /* CATEGORIAS */
+
+    .categorias {
+      max-width: 1200px;
+      margin: 25px auto;
+      padding: 0 18px;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+    }
+
+    .categoria {
+      flex-shrink: 0;
+      border: 1px solid var(--borda);
+      background: white;
+      padding: 10px 17px;
+      border-radius: 30px;
+      font-weight: 700;
+    }
+
+    .categoria:hover {
+      background: var(--principal);
+      color: white;
+    }
+
+    /* PRODUTOS */
+
+    .secao {
+      max-width: 1200px;
+      margin: 45px auto;
+      padding: 0 18px;
+    }
+
+    .titulo-secao {
+      margin-bottom: 20px;
+    }
+
+    .titulo-secao h2 {
+      font-size: 28px;
+    }
+
+    .titulo-secao p {
+      color: var(--cinza);
+    }
+
+    .produtos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .produto {
+      background: white;
+      border-radius: var(--raio);
+      overflow: hidden;
+      box-shadow: var(--sombra);
+      transition: .2s;
+    }
+
+    .produto:hover {
+      transform: translateY(-3px);
+    }
+
+    .produto img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .produto-info {
+      padding: 17px;
+    }
+
+    .produto h3 {
+      font-size: 19px;
+      margin-bottom: 6px;
+    }
+
+    .descricao {
+      color: var(--cinza);
+      font-size: 14px;
+      min-height: 42px;
+      margin-bottom: 12px;
+    }
+
+    .preco {
+      font-size: 21px;
+      font-weight: 900;
+      color: var(--principal);
+      margin-bottom: 12px;
+    }
+
+    .botao-adicionar {
+      width: 100%;
+      border: none;
+      background: #222;
+      color: white;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 800;
+    }
+
+    .botao-adicionar:hover {
+      background: var(--principal);
+    }
+
+    /* AVALIAÇÕES */
+
+    .avaliacoes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .avaliacao {
+      background: white;
+      padding: 20px;
+      border-radius: var(--raio);
+      box-shadow: var(--sombra);
+    }
+
+    .estrelas {
+      color: #f5a900;
+      font-size: 21px;
+      margin-bottom: 10px;
+    }
+
+    .avaliacao strong {
+      display: block;
+      margin-top: 12px;
+    }
+
+    .form-avaliacao {
+      background: white;
+      padding: 25px;
+      border-radius: var(--raio);
+      box-shadow: var(--sombra);
+      max-width: 650px;
+      margin-top: 25px;
+    }
+
+    .form-avaliacao input,
+    .form-avaliacao textarea {
+      width: 100%;
+      border: 1px solid #ddd;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      outline: none;
+    }
+
+    .form-avaliacao textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .seletor-estrelas {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 15px;
+    }
+
+    .estrela {
+      border: none;
+      background: none;
+      font-size: 32px;
+      color: #ccc;
+    }
+
+    .estrela.selecionada {
+      color: #f5a900;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #191919;
+      color: white;
+      margin-top: 60px;
+      padding: 40px 18px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 30px;
+    }
+
+    footer h3 {
+      margin-bottom: 10px;
+    }
+
+    footer p {
+      color: #ccc;
+    }
+
+    /* CARRINHO */
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      z-index: 2000;
+      display: none;
+    }
+
+    .overlay.ativo {
+      display: block;
+    }
+
+    .carrinho {
+      position: fixed;
+      right: 0;
+      top: 0;
+      width: min(440px, 100%);
+      height: 100vh;
+      background: white;
+      z-index: 2100;
+      transform: translateX(100%);
+      transition: .3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .carrinho.aberto {
+      transform: translateX(0);
+    }
+
+    .carrinho-header {
+      padding: 18px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .fechar {
+      border: none;
+      background: #eee;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      font-size: 18px;
+    }
+
+    .itens-carrinho {
+      flex: 1;
+      overflow-y: auto;
+      padding: 18px;
+    }
+
+    .item-carrinho {
+      border-bottom: 1px solid #eee;
+      padding: 13px 0;
+    }
+
+    .item-linha {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .item-carrinho small {
+      color: var(--cinza);
+    }
+
+    .quantidade {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .quantidade button {
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: #eee;
+    }
+
+    .carrinho-footer {
+      border-top: 1px solid #eee;
+      padding: 18px;
+    }
+
+    .total-linha {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    .campo {
+      margin-bottom: 10px;
+    }
+
+    .campo label {
+      display: block;
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .campo input,
+    .campo select {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #ddd;
+      border-radius: 9px;
+    }
+
+    .botao-whatsapp {
+      width: 100%;
+      border: none;
+      padding: 14px;
+      border-radius: 10px;
+      background: #25d366;
+      color: white;
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    /* ADMIN */
+
+    .admin-area {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      background: #f4f4f4;
+      overflow-y: auto;
+    }
+
+    .admin-area.ativo {
+      display: block;
+    }
+
+    .admin-header {
+      background: #191919;
+      color: white;
+      padding: 18px;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+
+    .admin-header-inner {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .admin-conteudo {
+      max-width: 1100px;
+      margin: 25px auto;
+      padding: 0 18px;
+    }
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .admin-card {
+      background: white;
+      border-radius: 15px;
+      padding: 22px;
+      box-shadow: var(--sombra);
+    }
+
+    .admin-card h3 {
+      margin-bottom: 15px;
+    }
+
+    .admin-card button {
+      border: none;
+      padding: 11px 15px;
+      border-radius: 9px;
+      font-weight: 800;
+      margin: 4px;
+    }
+
+    .btn-abrir {
+      background: var(--verde);
+      color: white;
+    }
+
+    .btn-fechar {
+      background: var(--vermelho);
+      color: white;
+    }
+
+    .btn-secundario {
+      background: #eee;
+    }
+
+    /* LOGIN */
+
+    .login-admin {
+      max-width: 400px;
+      margin: 100px auto;
+      padding: 25px;
+      background: white;
+      border-radius: 18px;
+      box-shadow: var(--sombra);
+    }
+
+    .login-admin input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 9px;
+      margin: 8px 0;
+    }
+
+    /* RESPONSIVO */
+
+    @media (max-width: 900px) {
+      .produtos,
+      .avaliacoes {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .topo {
+        padding: 8px 12px;
+      }
+
+      .logo {
+        width: 125px;
+      }
+
+      .hero {
+        padding: 0 10px;
+      }
+
+      .hero-box {
+        min-height: 370px;
+        padding: 28px;
+      }
+
+      .produtos,
+      .avaliacoes,
+      .admin-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .produto img {
+        height: 230px;
+      }
+
+      .secao {
+        padding: 0 12px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
-<h1>🥔 Sabor e Recheio</h1>
-<p>Batatas recheadas no pote</p>
-</header>
-
-<div class="hero">
-<h2>Seu pedido começa aqui 😋</h2>
-<p>Preparado na hora e entregue em Baixo Guandu e Aimorés.</p>
-</div>
-
-<div class="container">
-
-<div class="promo">
-<strong>🎁 COMBO ESPECIAL</strong><br>
-2 batatas + refrigerante lata grátis
-</div>
-
-<h2>🥔 Batatas recheadas</h2>
-
-<div class="grid">
-
-<div class="card">
-<div class="food">🌭</div>
-<h3>Calabresa com cheddar</h3>
-<p>Batata, cheddar, calabresa, mussarela e cebolinha.</p>
-<div class="price">R$ 25,99</div>
-<button class="add" onclick="add('Calabresa com cheddar',25.99)">+ Adicionar</button>
-</div>
-
-<div class="card">
-<div class="food">🥓</div>
-<h3>Bacon com cheddar</h3>
-<p>Batata, cheddar, bacon, mussarela e cebolinha.</p>
-<div class="price">R$ 25,99</div>
-<button class="add" onclick="add('Bacon com cheddar',25.99)">+ Adicionar</button>
-</div>
-
-<div class="card">
-<div class="food">🍅</div>
-<h3>Bolonhesa</h3>
-<p>Batata, molho bolonhesa, mussarela e cebolinha.</p>
-<div class="price">R$ 25,99</div>
-<button class="add" onclick="add('Bolonhesa',25.99)">+ Adicionar</button>
-</div>
-
-<div class="card">
-<div class="food">🍗</div>
-<h3>Strogonoff de frango</h3>
-<p>Batata, strogonoff de frango, mussarela e cebolinha.</p>
-<div class="price">R$ 25,99</div>
-<button class="add" onclick="add('Strogonoff de frango',25.99)">+ Adicionar</button>
-</div>
-
-<div class="card">
-<div class="food">🥩</div>
-<h3>Carne desfiada</h3>
-<p>Batata, carne desfiada, mussarela e cebolinha.</p>
-<div class="price">R$ 25,99</div>
-<button class="add" onclick="add('Carne desfiada',25.99)">+ Adicionar</button>
-</div>
-
-<div class="card">
-<div class="food">🍕</div>
-<h3>Pizza</h3>
-<p>Presunto, calabresa, mussarela e orégano.</p>
-<div class="price">R$ 25,99</div>
-<button class="add" onclick="add('Pizza',25.99)">+ Adicionar</button>
-</div>
-
-</div>
-
-<h2>🥤 Bebidas</h2>
-
-<div class="grid">
-
-<div class="card">
-<div class="food">🥤</div>
-<h3>Coca-Cola lata</h3>
-<div class="price">R$ 6,00</div>
-<button class="add" onclick="add('Coca-Cola lata',6)">+ Adicionar</button>
-</div>
-
-<div class="card">
-<div class="food">🥤</div>
-<h3>Guaraná Antarctica lata</h3>
-<div class="price">R$ 6,00</div>
-<button class="add" onclick="add('Guaraná Antarctica lata',6)">+ Adicionar</button>
-</div>
+  <!-- ================= HEADER ================= -->
 
-<div class="card">
-<div class="food">🧃</div>
-<h3>Coca-Cola 2L</h3>
-<div class="price">R$ 16,00</div>
-<button class="add" onclick="add('Coca-Cola 2L',16)">+ Adicionar</button>
-</div>
-
-<div class="card">
-<div class="food">🧃</div>
-<h3>Guaraná Iate 2L</h3>
-<div class="price">R$ 8,00</div>
-<button class="add" onclick="add('Guaraná Iate 2L',8)">+ Adicionar</button>
-</div>
+  <header>
+    <div class="topo">
 
-</div>
+      <!-- TROQUE PELO ARQUIVO REAL DA SUA LOGO -->
+      <img
+        src="imagens/logo.png"
+        alt="Sabor e Recheio"
+        class="logo"
+      >
 
-</div>
+      <button
+        id="statusLoja"
+        class="status aberta"
+        onclick="abrirAdmin()">
+        🟢 LOJA ABERTA
+      </button>
 
-<div class="cart">
-<div>
-<b id="qtd">0 itens</b><br>
-<span id="total">R$ 0,00</span>
-</div>
-<button onclick="abrir()">🛒 Ver pedido</button>
-</div>
+      <button
+        class="carrinho-topo"
+        onclick="abrirCarrinho()"
+        aria-label="Abrir carrinho">
+        🛒
+        <span id="contadorCarrinho" class="contador">0</span>
+      </button>
 
-<div id="pedido">
+    </div>
+  </header>
 
-<div class="modal">
 
-<button class="fechar" onclick="fechar()">✕</button>
+  <!-- ================= HERO ================= -->
 
-<h2>🛒 Seu pedido</h2>
+  <section class="hero">
 
-<div id="lista"></div>
+    <div class="hero-box">
 
-<label>Cidade</label>
+      <div class="hero-content">
 
-<select id="cidade" onchange="atualizar()">
-<option value="4">Baixo Guandu — R$ 4,00</option>
-<option value="6">Aimorés — R$ 6,00</option>
-</select>
+        <h1>
+          Batata recheada<br>
+          do jeito que você gosta!
+        </h1>
 
-<label>Endereço</label>
-<input id="endereco" placeholder="Rua, número e bairro">
+        <p>
+          Sabor de verdade, recheio caprichado
+          e aquele toque especial do Sabor e Recheio.
+        </p>
 
-<label>Pagamento</label>
+        <button
+          class="botao-principal"
+          onclick="document.getElementById('batatas').scrollIntoView({behavior:'smooth'})">
+          🍴 FAZER PEDIDO
+        </button>
 
-<select id="pagamento">
-<option>Pix</option>
-<option>Dinheiro</option>
-<option>Cartão</option>
-</select>
+      </div>
 
-<div id="resumo"></div>
+    </div>
 
-<br>
+  </section>
 
-<button class="finalizar" onclick="whatsapp()">
-📲 Finalizar pedido pelo WhatsApp
-</button>
 
-</div>
-</div>
+  <!-- ================= CATEGORIAS ================= -->
 
-<script>
+  <nav class="categorias">
 
-let carrinho=[];
+    <button class="categoria"
+      onclick="irPara('batatas')">
+      🥔 Batatas
+    </button>
 
-function dinheiro(v){
- return "R$ "+v.toFixed(2).replace(".",",");
-}
+    <button class="categoria"
+      onclick="irPara('bebidas')">
+      🥤 Bebidas
+    </button>
 
-function add(nome,preco){
- carrinho.push({nome,preco});
- atualizar();
-}
+    <button class="categoria"
+      onclick="irPara('acrescimos')">
+      ➕ Acréscimos
+    </button>
 
-function atualizar(){
+    <button class="categoria"
+      onclick="irPara('avaliacoes')">
+      ⭐ Avaliações
+    </button>
 
-let subtotal=0;
+  </nav>
 
-carrinho.forEach(x=>subtotal+=x.preco);
 
-let entrega=carrinho.length>0
- ? Number(document.getElementById("cidade").value)
- :0;
+  <!-- ================= BATATAS ================= -->
 
-document.getElementById("qtd").innerText=
-carrinho.length+" "+
-(carrinho.length==1?"item":"itens");
+  <section class="secao" id="batatas">
 
-document.getElementById("total").innerText=
-dinheiro(subtotal+entrega);
+    <div class="titulo-secao">
+      <h2>🥔 Batatas recheadas no pote</h2>
+      <p>Escolha seu sabor favorito.</p>
+    </div>
 
-let lista="";
+    <div class="produtos" id="listaBatatas"></div>
 
-carrinho.forEach((x,i)=>{
- lista+=`
- <div class="item">
- <span>${x.nome}</span>
- <b>${dinheiro(x.preco)}
- <button onclick="remover(${i})">×</button>
- </b>
- </div>`;
-});
+  </section>
 
-document.getElementById("lista").innerHTML=
-lista || "<p>Seu pedido está vazio.</p>";
 
-document.getElementById("resumo").innerHTML=`
-<div class="item">
-<span>Subtotal</span>
-<b>${dinheiro(subtotal)}</b>
-</div>
+  <!-- ================= BEBIDAS ================= -->
 
-<div class="item">
-<span>Entrega</span>
-<b>${dinheiro(entrega)}</b>
-</div>
+  <section class="secao" id="bebidas">
 
-<div class="item">
-<span><b>Total</b></span>
-<b>${dinheiro(subtotal+entrega)}</b>
-</div>
-`;
-}
+    <div class="titulo-secao">
+      <h2>🥤 Bebidas</h2>
+      <p>Complete seu pedido.</p>
+    </div>
 
-function remover(i){
- carrinho.splice(i,1);
- atualizar();
-}
+    <div class="produtos" id="listaBebidas"></div>
 
-function abrir(){
- document.getElementById("pedido").style.display="flex";
- atualizar();
-}
+  </section>
 
-function fechar(){
- document.getElementById("pedido").style.display="none";
-}
 
-function whatsapp(){
+  <!-- ================= ACRÉSCIMOS ================= -->
 
-if(carrinho.length==0){
- alert("Adicione algum produto.");
- return;
-}
+  <section class="secao" id="acrescimos">
 
-let endereco=
-document.getElementById("endereco").value.trim();
+    <div class="titulo-secao">
+      <h2>➕ Acréscimos</h2>
+      <p>Deixe sua batata ainda mais especial.</p>
+    </div>
 
-if(!endereco){
- alert("Informe o endereço.");
- return;
-}
+    <div class="produtos" id="listaAcrescimos"></div>
 
-let cidadeSelect=
-document.getElementById("cidade");
+  </section>
 
-let cidade=
-cidadeSelect.options[cidadeSelect.selectedIndex].text;
 
-let entrega=
-Number(document.getElementById("cidade").value);
+  <!-- ================= AVALIAÇÕES ================= -->
 
-let pagamento=
-document.getElementById("pagamento").value;
+  <section class="secao" id="avaliacoes">
 
-let subtotal=0;
+    <div class="titulo-secao">
+      <h2>⭐ O que nossos clientes estão dizendo</h2>
+      <p>Sua opinião é muito importante para nós.</p>
+    </div>
 
-let itens="";
+    <div class="avaliacoes" id="listaAvaliacoes"></div>
 
-carrinho.forEach(x=>{
- subtotal+=x.preco;
- itens+="• "+x.nome+" — "+dinheiro(x.preco)+"%0A";
-});
+    <div class="form-avaliacao">
 
-let total=subtotal+entrega;
+      <h3>Deixe sua avaliação</h3>
 
-let mensagem=
-"SABOR E RECHEIO 🥔%0A%0A"+
-"Pedido:%0A"+
-itens+
-"%0A*Cidade:* "+cidade+
-"%0A*Endereço:* "+endereco+
-"%0A*Pagamento:* "+pagamento+
-"%0A%0ASubtotal: "+dinheiro(subtotal)+
-"%0AEntrega: "+dinheiro(entrega)+
-"%0A*Total: "+dinheiro(total);
+      <br>
 
-window.location.href=
-"https://wa.me/5527996283809?text="+mensagem;
+      <input
+        type="text"
+        id="nomeAvaliacao"
+        placeholder="Seu nome">
 
-}
+      <div class="seletor-estrelas">
 
-atualizar();
+        <button class="estrela" onclick="selecionarEstrela(1)">★</button>
+        <button class="estrela" onclick="selecionarEstrela(2)">★</button>
+        <button class="estrela" onclick="selecionarEstrela(3)">★</button>
+        <button class="estrela" onclick="selecionarEstrela(4)">★</button>
+        <button class="estrela" onclick="selecionarEstrela(5)">★</button>
 
-</script>
+      </div>
 
-</body>
-</html>
- 
+      <textarea
+        id="textoAvaliacao"
+        placeholder="Conte como foi sua experiência..."></textarea>
 
+      <button
+        class="botao-principal"
+        onclick="enviarAvaliacao()">
+        Enviar avaliação
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= FOOTER ================= -->
+
+  <footer>
+
+    <div class="footer-content">
+
+      <div>
+        <h3>Sabor e Recheio</h3>
+
+        <p>
+          Batatas recheadas no pote,
+          bebidas e muito sabor.
+        </p>
+      </div>
+
+      <div>
+        <h3>Atendimento</h3>
+
+        <p>Baixo Guandu</p>
+        <p>Aimorés</p>
+        <p>WhatsApp: (27) 99628-3809</p>
+      </div>
+
+      <div>
+        <h3>Horário</h3>
+
+        <p>Consulte o status da loja.</p>
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- ================= OVERLAY ================= -->
+
+  <div
+    id="overlay"
+    class="overlay"
+    onclick="fecharCarrinho()">
+  </div>
+
+
+  <!-- ================= CARRINHO ================= -->
+
+  <aside
+    id="carrinho"
+    class="carrinho">
+
+    <div class="carrinho-header">
+
+      <h2>🛒 Seu pedido</h2>
+
+      <button
+        class="fechar"
+        onclick="fecharCarrinho()">
+        ✕
+      </button>
+
+    </div>
+
+    <div
+      id="itensCarrinho"
+      class="itens-carrinho">
+    </div>
+
+    <div class="carrinho-footer">
+
+      <div class="campo">
+        <label>Endereço de entrega</label>
+
+        <input
+          id="endereco"
+          type="text"
+          placeholder="Rua, número e bairro">
+      </div>
+
+      <div class="campo">
+        <label>Forma de pagamento</label>
+
+        <select id="pagamento">
+
+          <option value="Pix">Pix</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão">Cartão</option>
+
+        </select>
+      </div>
+
+      <div class="campo">
+        <label>Cidade</label>
+
+        <select id="cidade">
+
+          <option value="Baixo Guandu">
+            Baixo Guandu - R$ 4,00
+          </option>
+
+          <option value="Aimorés">
+            Aimorés - R$ 6,00
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="total-linha">
+        <span>Subtotal</span>
+        <span id="subtotal">R$ 0,00</span>
+      </div>
+
+      <div class="total-linha">
+        <span>Entrega</span>
+        <span id="taxa">R$ 4,00</span>
+      </div>
+
+      <div class="total-linha">
+        <span>Total</span>
+        <span id="total">R$ 4,00</span>
+      </div>
+
+      <button
+        class="botao-whatsapp"
+        onclick="finalizarPedido()">
+        📲 ENVIAR PEDIDO PELO WHATSAPP
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- ================= ADMIN ================= -->
+
+  <section
+    id="admin"
+    class="admin-area">
+
+    <div id="loginAdmin">
+
+      <div class="login-admin">
+
+        <h2>🔐 Administração</h2>
+
+        <p>
+          Área exclusiva do Sabor e Recheio.
+        </p>
+
+        <br>
+
+        <input
+          id="senhaAdmin"
+          type="password"
+          placeholder="Senha">
+
+        <button
+          class="botao-principal"
+          style="width:100%;"
+          onclick="loginAdmin()">
+          Entrar
+        </button>
+
+        <br><br>
+
+        <button
+          class="btn-secundario"
+          style="width:100%;"
+          onclick="fecharAdmin()">
+          Voltar para loja
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div id="painelAdmin" style="display:none;">
+
+      <div class="admin-header">
+
+        <div class="admin-header-inner">
+
+          <div>
+            <strong>Administração</strong>
+          </div>
+
+          <button
+            class="btn-secundario"
+            onclick="fecharAdmin()">
+            Sair
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="admin-conteudo">
+
+        <div class="admin-grid">
+
+          <div class="admin-card">
+
+            <h3>🏪 Status da loja</h3>
+
+            <p id="statusAdmin"></p>
+
+            <br>
+
+            <button
+              class="btn-abrir"
+              onclick="alterarStatus(true)">
+              🟢 Abrir loja
+            </button>
+
+            <button
+              class="btn-fechar"
+              onclick="alterarStatus(false)">
+              🔴 Fechar loja
+            </button>
+
+          </div>
+
+
+          <div class="admin-card">
+
+            <h3>💰 Taxas de entrega</h3>
+
+            <p>Baixo Guandu: <strong>R$ 4,00</strong></p>
+            <p>Aimorés: <strong>R$ 6,00</strong></p>
+
+            <br>
+
+            <p>
+              Os valores permanecem conforme configurado
+              atualmente.
+            </p>
+
+          </div>
+
+
+          <div class="admin-card">
+
+            <h3>📦 Produtos</h3>
+
+            <p>
+              A estrutura permite futuramente:
+            </p>
+
+            <br>
+
+            <ul>
+              <li>Adicionar produtos</li>
+              <li>Editar produtos</li>
+              <li>Alterar preços</li>
+              <li>Ativar/desativar produtos</li>
+              <li>Alterar fotos</li>
+            </ul>
+
+          </div>
+
+
+          <div class="admin-card">
+
+            <h3>⭐ Avaliações</h3>
+
+            <p>
+              Total de avaliações:
+              <strong id="totalAvaliacoesAdmin">0</strong>
+            </p>
+
+            <br>
+
+            <button
+              class="btn-secundario"
