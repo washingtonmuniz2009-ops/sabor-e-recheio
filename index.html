@@ -1,162 +1,473 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sabor e Recheio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sabor e Recheio</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#f5f5f5;
+ color:#222;
+ padding-bottom:90px
+}
+header{
+ background:#d71920;
+ color:white;
+ padding:18px;
+ text-align:center
+}
+header h1{margin:0;font-size:28px}
+header p{margin:5px 0 0}
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #fff8f0;
-      color: #333;
-    }
+.hero{
+ background:#fff;
+ padding:20px;
+ text-align:center
+}
+.hero h2{margin:5px 0;color:#d71920}
+.hero p{color:#666}
 
-    header {
-      background: #8b1e1e;
-      color: white;
-      text-align: center;
-      padding: 25px 15px;
-    }
+.container{
+ max-width:700px;
+ margin:auto;
+ padding:15px
+}
 
-    header h1 {
-      font-size: 30px;
-      margin-bottom: 8px;
-    }
+.promo{
+ background:#171717;
+ color:white;
+ border-radius:16px;
+ padding:18px;
+ margin-bottom:20px
+}
+.promo strong{color:#ffd34d}
 
-    header p {
-      font-size: 16px;
-    }
+h2{
+ font-size:21px;
+ margin-top:25px
+}
 
-    .container {
-      max-width: 600px;
-      margin: auto;
-      padding: 20px;
-    }
+.grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:12px
+}
 
-    .titulo {
-      text-align: center;
-      margin-bottom: 20px;
-    }
+.card{
+ background:white;
+ border-radius:16px;
+ padding:15px;
+ box-shadow:0 3px 10px #0001
+}
 
-    .titulo h2 {
-      color: #8b1e1e;
-      margin-bottom: 8px;
-    }
+.food{
+ height:100px;
+ border-radius:12px;
+ background:#fff0d8;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:50px
+}
 
-    .produto {
-      background: white;
-      border-radius: 15px;
-      padding: 18px;
-      margin-bottom: 15px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.10);
-    }
+.card h3{
+ font-size:16px;
+ margin:10px 0 5px
+}
 
-    .produto h3 {
-      color: #8b1e1e;
-      margin-bottom: 8px;
-    }
+.card p{
+ font-size:12px;
+ color:#777;
+ min-height:35px
+}
 
-    .produto p {
-      margin-bottom: 12px;
-    }
+.price{
+ font-size:18px;
+ font-weight:bold;
+ color:#d71920
+}
 
-    .preco {
-      font-size: 20px;
-      font-weight: bold;
-      color: #16803c;
-      margin-bottom: 12px;
-    }
+button{
+ border:0;
+ border-radius:10px;
+ padding:11px;
+ font-weight:bold;
+ cursor:pointer
+}
 
-    button {
-      width: 100%;
-      border: none;
-      border-radius: 10px;
-      padding: 13px;
-      background: #8b1e1e;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.add{
+ width:100%;
+ margin-top:8px;
+ background:#d71920;
+ color:white
+}
 
-    button:hover {
-      background: #6f1515;
-    }
+.cart{
+ position:fixed;
+ bottom:10px;
+ left:10px;
+ right:10px;
+ background:#171717;
+ color:white;
+ padding:13px;
+ border-radius:15px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center
+}
 
-    .combo {
-      background: #fff0c7;
-      border: 2px solid #e5a900;
-      border-radius: 15px;
-      padding: 18px;
-      margin-bottom: 15px;
-    }
+.cart button{
+ background:#ffd34d;
+ color:#111
+}
 
-    .combo h3 {
-      color: #8b1e1e;
-      margin-bottom: 8px;
-    }
+#pedido{
+ display:none;
+ position:fixed;
+ inset:0;
+ background:#0008;
+ z-index:10;
+ align-items:flex-end
+}
 
-    footer {
-      text-align: center;
-      padding: 25px;
-      color: #777;
-      font-size: 14px;
-    }
-  </style>
+.modal{
+ background:white;
+ width:100%;
+ max-height:90%;
+ overflow:auto;
+ border-radius:22px 22px 0 0;
+ padding:20px
+}
+
+.item{
+ display:flex;
+ justify-content:space-between;
+ padding:10px 0;
+ border-bottom:1px solid #eee
+}
+
+input,select{
+ width:100%;
+ padding:13px;
+ margin:6px 0 12px;
+ border:1px solid #ddd;
+ border-radius:10px
+}
+
+.finalizar{
+ width:100%;
+ background:#25d366;
+ color:white;
+ font-size:16px
+}
+
+.fechar{
+ float:right;
+ background:#eee
+}
+
+@media(max-width:420px){
+ .grid{grid-template-columns:1fr}
+}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <h1>🥔 Sabor e Recheio</h1>
-    <p>Batatas recheadas no pote</p>
-  </header>
+<header>
+<h1>🥔 Sabor e Recheio</h1>
+<p>Batatas recheadas no pote</p>
+</header>
 
-  <main class="container">
+<div class="hero">
+<h2>Seu pedido começa aqui 😋</h2>
+<p>Preparado na hora e entregue em Baixo Guandu e Aimorés.</p>
+</div>
 
-    <div class="titulo">
-      <h2>Faça seu pedido</h2>
-      <p>Escolha sua batata favorita!</p>
-    </div>
+<div class="container">
 
-    <div class="produto">
-      <h3>🥔 Batata Recheada no Pote</h3>
-      <p>500 ml</p>
-      <div class="preco">R$ 25,99</div>
-      <button onclick="alert('Pedido selecionado!')">
-        Fazer pedido
-      </button>
-    </div>
+<div class="promo">
+<strong>🎁 COMBO ESPECIAL</strong><br>
+2 batatas + refrigerante lata grátis
+</div>
 
-    <div class="combo">
-      <h3>🎁 COMBO 1</h3>
-      <p><strong>Na compra de 2 batatas recheadas no pote, ganhe 1 refrigerante lata!</strong></p>
-      <button onclick="alert('Combo 1 selecionado!')">
-        Quero este combo
-      </button>
-    </div>
+<h2>🥔 Batatas recheadas</h2>
 
-    <div class="combo">
-      <h3>🎁 COMBO 2</h3>
-      <p><strong>Na compra de 3 batatas recheadas no pote, ganhe 1 Guaraná Iate 2 L!</strong></p>
-      <button onclick="alert('Combo 2 selecionado!')">
-        Quero este combo
-      </button>
-    </div>
+<div class="grid">
 
-  </main>
+<div class="card">
+<div class="food">🌭</div>
+<h3>Calabresa com cheddar</h3>
+<p>Batata, cheddar, calabresa, mussarela e cebolinha.</p>
+<div class="price">R$ 25,99</div>
+<button class="add" onclick="add('Calabresa com cheddar',25.99)">+ Adicionar</button>
+</div>
 
-  <footer>
-    Sabor e Recheio ❤️<br>
-    Seu sabor, do seu jeito!
-  </footer>
+<div class="card">
+<div class="food">🥓</div>
+<h3>Bacon com cheddar</h3>
+<p>Batata, cheddar, bacon, mussarela e cebolinha.</p>
+<div class="price">R$ 25,99</div>
+<button class="add" onclick="add('Bacon com cheddar',25.99)">+ Adicionar</button>
+</div>
+
+<div class="card">
+<div class="food">🍅</div>
+<h3>Bolonhesa</h3>
+<p>Batata, molho bolonhesa, mussarela e cebolinha.</p>
+<div class="price">R$ 25,99</div>
+<button class="add" onclick="add('Bolonhesa',25.99)">+ Adicionar</button>
+</div>
+
+<div class="card">
+<div class="food">🍗</div>
+<h3>Strogonoff de frango</h3>
+<p>Batata, strogonoff de frango, mussarela e cebolinha.</p>
+<div class="price">R$ 25,99</div>
+<button class="add" onclick="add('Strogonoff de frango',25.99)">+ Adicionar</button>
+</div>
+
+<div class="card">
+<div class="food">🥩</div>
+<h3>Carne desfiada</h3>
+<p>Batata, carne desfiada, mussarela e cebolinha.</p>
+<div class="price">R$ 25,99</div>
+<button class="add" onclick="add('Carne desfiada',25.99)">+ Adicionar</button>
+</div>
+
+<div class="card">
+<div class="food">🍕</div>
+<h3>Pizza</h3>
+<p>Presunto, calabresa, mussarela e orégano.</p>
+<div class="price">R$ 25,99</div>
+<button class="add" onclick="add('Pizza',25.99)">+ Adicionar</button>
+</div>
+
+</div>
+
+<h2>🥤 Bebidas</h2>
+
+<div class="grid">
+
+<div class="card">
+<div class="food">🥤</div>
+<h3>Coca-Cola lata</h3>
+<div class="price">R$ 6,00</div>
+<button class="add" onclick="add('Coca-Cola lata',6)">+ Adicionar</button>
+</div>
+
+<div class="card">
+<div class="food">🥤</div>
+<h3>Guaraná Antarctica lata</h3>
+<div class="price">R$ 6,00</div>
+<button class="add" onclick="add('Guaraná Antarctica lata',6)">+ Adicionar</button>
+</div>
+
+<div class="card">
+<div class="food">🧃</div>
+<h3>Coca-Cola 2L</h3>
+<div class="price">R$ 16,00</div>
+<button class="add" onclick="add('Coca-Cola 2L',16)">+ Adicionar</button>
+</div>
+
+<div class="card">
+<div class="food">🧃</div>
+<h3>Guaraná Iate 2L</h3>
+<div class="price">R$ 8,00</div>
+<button class="add" onclick="add('Guaraná Iate 2L',8)">+ Adicionar</button>
+</div>
+
+</div>
+
+</div>
+
+<div class="cart">
+<div>
+<b id="qtd">0 itens</b><br>
+<span id="total">R$ 0,00</span>
+</div>
+<button onclick="abrir()">🛒 Ver pedido</button>
+</div>
+
+<div id="pedido">
+
+<div class="modal">
+
+<button class="fechar" onclick="fechar()">✕</button>
+
+<h2>🛒 Seu pedido</h2>
+
+<div id="lista"></div>
+
+<label>Cidade</label>
+
+<select id="cidade" onchange="atualizar()">
+<option value="4">Baixo Guandu — R$ 4,00</option>
+<option value="6">Aimorés — R$ 6,00</option>
+</select>
+
+<label>Endereço</label>
+<input id="endereco" placeholder="Rua, número e bairro">
+
+<label>Pagamento</label>
+
+<select id="pagamento">
+<option>Pix</option>
+<option>Dinheiro</option>
+<option>Cartão</option>
+</select>
+
+<div id="resumo"></div>
+
+<br>
+
+<button class="finalizar" onclick="whatsapp()">
+📲 Finalizar pedido pelo WhatsApp
+</button>
+
+</div>
+</div>
+
+<script>
+
+let carrinho=[];
+
+function dinheiro(v){
+ return "R$ "+v.toFixed(2).replace(".",",");
+}
+
+function add(nome,preco){
+ carrinho.push({nome,preco});
+ atualizar();
+}
+
+function atualizar(){
+
+let subtotal=0;
+
+carrinho.forEach(x=>subtotal+=x.preco);
+
+let entrega=carrinho.length>0
+ ? Number(document.getElementById("cidade").value)
+ :0;
+
+document.getElementById("qtd").innerText=
+carrinho.length+" "+
+(carrinho.length==1?"item":"itens");
+
+document.getElementById("total").innerText=
+dinheiro(subtotal+entrega);
+
+let lista="";
+
+carrinho.forEach((x,i)=>{
+ lista+=`
+ <div class="item">
+ <span>${x.nome}</span>
+ <b>${dinheiro(x.preco)}
+ <button onclick="remover(${i})">×</button>
+ </b>
+ </div>`;
+});
+
+document.getElementById("lista").innerHTML=
+lista || "<p>Seu pedido está vazio.</p>";
+
+document.getElementById("resumo").innerHTML=`
+<div class="item">
+<span>Subtotal</span>
+<b>${dinheiro(subtotal)}</b>
+</div>
+
+<div class="item">
+<span>Entrega</span>
+<b>${dinheiro(entrega)}</b>
+</div>
+
+<div class="item">
+<span><b>Total</b></span>
+<b>${dinheiro(subtotal+entrega)}</b>
+</div>
+`;
+}
+
+function remover(i){
+ carrinho.splice(i,1);
+ atualizar();
+}
+
+function abrir(){
+ document.getElementById("pedido").style.display="flex";
+ atualizar();
+}
+
+function fechar(){
+ document.getElementById("pedido").style.display="none";
+}
+
+function whatsapp(){
+
+if(carrinho.length==0){
+ alert("Adicione algum produto.");
+ return;
+}
+
+let endereco=
+document.getElementById("endereco").value.trim();
+
+if(!endereco){
+ alert("Informe o endereço.");
+ return;
+}
+
+let cidadeSelect=
+document.getElementById("cidade");
+
+let cidade=
+cidadeSelect.options[cidadeSelect.selectedIndex].text;
+
+let entrega=
+Number(document.getElementById("cidade").value);
+
+let pagamento=
+document.getElementById("pagamento").value;
+
+let subtotal=0;
+
+let itens="";
+
+carrinho.forEach(x=>{
+ subtotal+=x.preco;
+ itens+="• "+x.nome+" — "+dinheiro(x.preco)+"%0A";
+});
+
+let total=subtotal+entrega;
+
+let mensagem=
+"SABOR E RECHEIO 🥔%0A%0A"+
+"Pedido:%0A"+
+itens+
+"%0A*Cidade:* "+cidade+
+"%0A*Endereço:* "+endereco+
+"%0A*Pagamento:* "+pagamento+
+"%0A%0ASubtotal: "+dinheiro(subtotal)+
+"%0AEntrega: "+dinheiro(entrega)+
+"%0A*Total: "+dinheiro(total);
+
+window.location.href=
+"https://wa.me/5527996283809?text="+mensagem;
+
+}
+
+atualizar();
+
+</script>
 
 </body>
 </html>
+ 
+
